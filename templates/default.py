@@ -50,6 +50,7 @@ REPLICAS = 'replicas'
 SIZE = 'size'
 VM_COPIES = 'numberOfVMReplicas'
 ZONES = 'zones'
+LABELS = 'labels'
 
 # Common properties values (only official GCP values allowed here)
 EXTERNAL = 'External NAT'

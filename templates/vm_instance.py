@@ -43,6 +43,7 @@ AUTODELETE_BOOTDISK = 'bootDiskAutodelete'
 STATIC_IP = 'staticIP'
 NAT_IP = 'natIP'
 HAS_EXTERNAL_IP = 'hasExternalIP'
+LABELS = default.LABELS
 
 # Defaults used for modules that imports this one
 DEFAULT_DISKTYPE = 'pd-standard'
@@ -60,10 +61,7 @@ DEFAULT_PERSISTENT = 'PERSISTENT'
 DEFAULT_SERVICE_ACCOUNT = [{
     'email': 'default',
     'scopes': [
-        'https://www.googleapis.com/auth/cloud.useraccounts.readonly',
-        'https://www.googleapis.com/auth/devstorage.read_only',
-        'https://www.googleapis.com/auth/logging.write',
-        'https://www.googleapis.com/auth/monitoring.write',
+        'https://www.googleapis.com/auth/cloud-platform',
     ]
 }]
 
@@ -117,6 +115,7 @@ def GenerateComputeVM(context, create_disks_separately=True):
 
   machine_type = prop.setdefault(MACHINETYPE, DEFAULT_MACHINETYPE)
   metadata = prop.setdefault(METADATA, dict())
+  labels = prop.setdefault(LABELS, dict())
   network = prop.setdefault(NETWORK, DEFAULT_NETWORK)
   vm_name = MakeVMName(context)
   provide_boot = prop.setdefault(PROVIDE_BOOT, DEFAULT_PROVIDE_BOOT)
@@ -196,6 +195,7 @@ def GenerateComputeVM(context, create_disks_separately=True):
           'networkInterfaces': network_interfaces,
           'tags': tags,
           'metadata': metadata,
+          'labels': labels,          
       }
   })
 
