@@ -1,0 +1,58 @@
+{% set URLMAP = properties['deployName'] + '-lb'  %}
+{% set GLOBALFWDRULE = properties['deployName']  + '-fr'  %}
+{% set TARGET = properties['deployName'] + '-proxy'  %}
+{% set ADDRESS = properties['deployName'] + '-address'  %}
+{% set BS1 = properties['deployName'] + 'bb'  %}
+{% set SSLCERTIFICATE = properties['deployName'] + 'ssl-certificate'  %}
+
+resources:
+  # Google Front-end Service
+  - type: gcp-types/compute-v1:globalForwardingRules
+      name: {{ GLOBALFWDRULE }}
+      properties:
+        networkTier: PREMIUM
+        IPProtocol: TCP
+        IPAddress: $(ref.{{ ADDRESS }}.selfLink)
+        loadBalancingScheme: EXTERNAL
+        portRange: 443
+        target: $(ref.{{ TARGET }}.selfLink)
+
+  # Google target HTTPS proxy: Define the relationship between SSL certificates and URLMaps
+  - type: gcp-types/compute-v1:targetHttpsProxies
+      name: {{ TARGET }}
+      properties:
+        sslCertificates:
+          - $(ref.{{ SSLCERTIFICATE }}.selfLink)
+        urlMap: $(ref.{{ URLMAP }}.selfLink)
+
+  # Host and Path rules
+  - type: gcp-types/compute-v1:urlMaps
+      name: {{ URLMAP }}
+      properties:
+        # Default backend/bucket service when no rules has applied to the request
+        defaultService: $(ref.{{ BS1 }}.selfLink)
+
+  # Google managed ssl certificate
+  - type: gcp-types/compute-v1:sslCertificates
+      name: { { SSLCERTIFICATE } }
+      properties:
+        type: MANAGED
+        description: ''
+        managed:
+          domains:
+            - {{ properties[ 'yourDomain' ] }}
+
+  # Google Backend Bucket
+  - type: gcp-types/compute-v1:backendBuckets
+    name: {{ BS1 }}
+    properties:
+      description: backend bucket service for web-application
+      bucketName: $(ref.{{ properties['deployName'] + '-' + properties['bucketName'] }}.name)
+      enableCDN: true
+
+  # Global Address
+  - type: gcp-types/compute-v1:globalAddresses
+    name: {{ ADDRESS }}
+    properties:
+      addressType: EXTERNAL
+      ipVersion: IPV4
