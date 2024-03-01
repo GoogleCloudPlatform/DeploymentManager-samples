@@ -5,8 +5,8 @@ resources:
 - name: rrset-template-1
   type: all_supported_record_types.jinja
   properties:
-    rrsetDomain: dm-testing-all-record-types.com
-    rrsetName: dm_testing_rrset_1
-    zoneDnsName: dm-testing-all-record-types.com
-    zoneName: dm_testing_zone_1
+    rrsetDomain: dm-testing-all-record-types.com.
+    rrsetName: dm-testing-rrset-1
+    zoneDnsName: dm-testing-all-record-types.com.
+    zoneName: dm-testing-zone-1
     version: v1
