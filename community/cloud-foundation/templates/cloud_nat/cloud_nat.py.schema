@@ -1,0 +1,81 @@
+info:
+  title: Cloud Nat
+  author: nan.jiang@sourcedgroup.com
+  description: |
+    Deploys a Cloud Nat.
+
+    For more information on this resource:
+    https://cloud.google.com/nat/docs/overview 
+
+imports:
+  - path: cloud_nat.py
+
+required:
+  - network
+  - region
+  - name
+  - sourceSubnetworkIpRangesToNat
+
+properties:
+  name:
+    type: string
+    description: The name of Cloud Nat the resource.
+  network:
+    type: string
+    description: The name of the network to which the Cloud Nat belongs.
+  region:
+    type: string
+    description: The URI of the region where the Cloud Nat resides.
+  sourceSubnetworkIpRangesToNat:
+    type: string
+    description: IP Range inside the VPC effected by the nats service.
+    enum:
+      - ALL_SUBNETWORKS_ALL_IP_RANGES
+      - ALL_SUBNETWORKS_ALL_PRIMARY_IP_RANGES
+  minPortsPerVm:
+    type: number
+    description: |
+      Minimum number of ports allocated to a VM from this NAT config,
+      any setting belong 64 will be automatically converted to 64
+  udpIdleTimeoutSec:
+    type: number
+    description: Timeout for UDP connections in seconds
+    default: 30
+  icmpIdleTimeoutSec:
+    type: number
+    description: Timeout for ICMP connections in seconds
+    default: 30
+  tcpEstablishedIdleTimeoutSec:
+    type: number
+    description: Timeout for established TCP connections in seconds
+    default: 1200
+  tcpTransitoryIdleTimeoutSec:
+    type: number
+    description: Timeout for TCP connections in seconds
+    default: 30
+  natIps:
+    type: array
+    description: Static External IPs used as the NAT IPs.
+    items:
+      type: string
+      description: Static External IP self link
+
+outputs:
+  properties:
+    - name:
+        type: string
+        description: The name of the Cloud Nat resource.
+    - selfLink:
+        type: string
+        description: The URI (SelfLink) of the Cloud Nat resource.
+    - nat:
+        type: object
+        description: |
+            Object containing NAT information.
+            https://cloud.google.com/compute/docs/reference/rest/beta/routers
+
+documentation:
+  - templates/cloud_nat/README.md
+
+examples:
+  - templates/cloud_nat/examples/cloud_nat.yaml

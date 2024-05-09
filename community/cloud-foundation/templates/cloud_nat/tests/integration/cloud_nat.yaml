@@ -1,0 +1,26 @@
+# Test of the Cloud Router template usage.
+#
+# Variables:
+#   RAND: a random string used by the testing suite.
+#
+
+imports:
+  - path: templates/cloud_nat/cloud_nat.py
+    name: cloud_nat.py
+
+resources:
+  - name: cloud-nat-${RAND}
+    type: cloud_nat.py
+    properties:
+      name: nat-${RAND}
+      network: network-${RAND}
+      region: us-east1
+      # ALL_SUBNETWORKS_ALL_PRIMARY_IP_RANGES
+      sourceSubnetworkIpRangesToNat: ALL_SUBNETWORKS_ALL_IP_RANGES
+      minPortsPerVm: 96
+      udpIdleTimeoutSec: 55
+      icmpIdleTimeoutSec: 60
+      tcpEstablishedIdleTimeoutSec: 1140
+      tcpTransitoryIdleTimeoutSec: 60
+      natIps: 
+        - projects/${CLOUD_FOUNDATION_PROJECT_ID}/regions/us-east1/addresses/ip-${RAND}

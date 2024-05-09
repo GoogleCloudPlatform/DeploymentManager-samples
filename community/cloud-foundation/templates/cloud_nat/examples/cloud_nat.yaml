@@ -1,0 +1,22 @@
+# Example of the Cloud NAT template usage.
+# Replace <FIXME:> with your resource names
+
+imports:
+  - path: templates/cloud_nat/cloud_nat.py
+    name: cloud_nat.py
+
+resources:
+  - name: cloud-nat
+    type: cloud_nat.py
+    properties:
+      name: nat
+      network: <FIXME:YOURNETWORKNAME>
+      region: us-east1
+      sourceSubnetworkIpRangesToNat: ALL_SUBNETWORKS_ALL_IP_RANGES
+      minPortsPerVm: 64
+      udpIdleTimeoutSec: 30
+      icmpIdleTimeoutSec: 30
+      tcpEstablishedIdleTimeoutSec: 1200
+      tcpTransitoryIdleTimeoutSec: 30
+      natIps: 
+        - projects/<FIXME:YOURPROJECTNAME>/regions/us-east1/addresses/<FIXME:YOURIPNAME>
