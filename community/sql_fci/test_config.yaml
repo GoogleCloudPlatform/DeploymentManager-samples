@@ -1,0 +1,40 @@
+# Copyright 2017 Google Inc. All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+imports:
+- path: checkpoints.py
+- path: common.py
+- path: checkpoints.py
+- path: default.py
+- path: internal_lb.py
+- path: install.ps1
+- path: password.py
+- path: sql_fci_deployment.py
+- path: install.ps1
+- path: internal_lb.py
+- path: sql_network.py
+- path: utils.py
+- path: vms.py
+
+resources:
+- name: sql_fci_deployment
+  type: sql_fci_deployment.py
+  properties:
+    domain: testdomain.com
+    domain_netbios: testdomain
+    service_account: wsfc_service
+    region: us-west1
+    machine_type: "4 vCPUs, 15 GB Memory"
+    num_cluster_nodes: 2
+    volume_size_gb: "1000 GB (256 GB PD SSD x 4)"

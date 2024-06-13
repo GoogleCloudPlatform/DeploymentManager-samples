@@ -1,0 +1,55 @@
+description:
+  author:
+    title: Google Click to Deploy
+    descriptionHtml: Popular open stacks on Google Compute Engine packaged by Google.
+    shortDescription: Popular open stacks on Google Compute Engine packaged by Google.
+    url: 'https://cloud.google.com/solutions/#click-to-deploy'
+  title: SQL Server 2016 AlwaysOn Failover Cluster Instance (Beta)
+  tagline: SQL Server 2016 AlwaysOn Failover Cluster Instance (Beta)
+  architectureDescription: '<b>Note:</b> This deployment will create multiple instances with SSD Persistent Disks attached. You may need to increase your resource quotas to successfully deploy. Please visit <a href="https://cloud.google.com/compute/quotas">Resource Quotas</a> in the Google Documentation for information on increasing resource quotas.'
+  version: Microsoft SQL FCI
+  softwareGroups:
+    - software:
+        - title: Microsoft SQL Server
+
+input:
+  properties:
+    - name: region
+      title: Region
+      section: DEPLOYMENT
+    - name: domain
+      title: Active Directory Domain Name
+      section: DEPLOYMENT
+    - name: domain_netbios
+      title: Active Directory Domain NetBios Name
+      section: DEPLOYMENT
+    - name: service_account
+      title: Service Account Name
+      section: DEPLOYMENT
+    - name: num_cluster_nodes
+      title: Number of Cluster Nodes
+      section: DEPLOYMENT
+    - name: machine_type
+      title: Machine Type
+      section: VM
+    - name: volume_size_gb
+      title: SQL Volume Size
+      tooltip: The volume size, and the disk configuration required to support it. Note that S2D has a small overhead per disk, and this is compensated for by deploying more disk space than is used by the volume.
+      section: DEPLOYMENT
+  sections:
+    - name: VM
+      title: VM Details
+      tooltip: Information regarding the makeup of your cluster nodes.
+    - name: DEPLOYMENT
+      title: Overall Deployment Details
+
+runtime:
+  deployingMessage: Deployment can take up to 40 minutes to complete
+  applicationTable:
+    rows:
+      - label: Internal Load Balancer IP
+        value: 10.129.0.201
+      - label: Number of PD SSDs per VM
+        value: 4
+
+metadata_version: v1

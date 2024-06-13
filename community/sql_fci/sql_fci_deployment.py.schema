@@ -1,0 +1,65 @@
+imports:
+- path: checkpoints.py
+- path: common.py
+- path: default.py
+- path: internal_lb.py
+- path: install.ps1
+- path: password.py
+- path: sql_fci_deployment.py
+- path: sql_network.py
+- path: utils.py
+- path: vms.py
+
+info:
+  version: 1.0
+  title: Microsoft SQL FCI Cluster Template
+
+required:
+  - region
+  - domain
+  - domain_netbios
+  - service_account
+  - num_cluster_nodes
+  - machine_type
+
+
+properties:
+  region:
+    description: Region where the cluster nodes will reside.
+    type: string
+    default: us-west1
+    x-googleProperty:
+      type: GCE_REGION
+  num_cluster_nodes:
+    description: The number of cluster nodes.
+    type: integer
+    default: 2
+    enum:
+      - 2
+      - 3
+  machine_type:
+    description: The type of the cluster node VM.
+    type: string
+    default: "4 vCPUs, 15 GB Memory"
+    enum:
+      - "4 vCPUs, 15 GB Memory"
+      - "8 vCPUs, 30 GB Memory"
+  domain:
+    description: URL used by the Active Directory service.
+    type: string
+    default: testdomain.com
+  domain_netbios:
+    description: The Active Directory group name.
+    type: string
+    default: testdomain
+  service_account:
+    description: The name of the Active Directory service account.
+    type: string
+    default: wsfc_service
+  volume_size_gb:
+    description: Size of the SQL data volume, in GB.
+    type: string
+    default: "500 GB (128 GB PD SSD x 4)"
+    enum:
+      - "500 GB (128 GB PD SSD x 4)"
+      - "1000 GB (256 GB PD SSD x 4)"
