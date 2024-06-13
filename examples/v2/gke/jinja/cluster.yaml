@@ -16,7 +16,7 @@ imports:
 - path: cluster.jinja
 
 resources:
-- name: my-cluster
+- name: test-cluster
   type: cluster.jinja
   properties:
-    zone: ZONE_TO_RUN
+    zone: europe-west1-b
