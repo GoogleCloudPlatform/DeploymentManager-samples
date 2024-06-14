@@ -1,0 +1,36 @@
+{#
+  title: Runtime Config
+  author: osm.hammami@gmail.com
+  description: |
+    Creates a RuntimeConfig with a list of variables that belong to a RuntimeConfig created resource.
+  version: 0.1
+#}
+
+{% set ID = env['name'] %}
+
+resources:
+- name: {{ ID }}
+  type: runtimeconfig.v1beta1.config
+  properties:
+    config: {{ ID }}
+
+{% if properties['variables'] %}
+  {% for i in range(properties['variables']| length) %}
+- name: {{ ID }}-{{ properties['variables'][i]['name'] }}
+  type: runtimeconfig.v1beta1.variable
+  properties:
+    parent: $(ref.{{ ID }}.name)
+    variable: {{ properties['variables'][i]['name'] }}
+    text: {{ properties['variables'][i]['value'] }}
+    {% if i %}
+  metadata:
+    dependsOn:
+    - {{ ID }}-{{ properties['variables'][i - 1]['name'] }}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+outputs:
+  - name: runtimeconfig-name
+    value: {{ ID }}
+

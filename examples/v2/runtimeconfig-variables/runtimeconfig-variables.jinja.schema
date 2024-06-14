@@ -1,0 +1,29 @@
+info:
+  title: Runtime Config Variables
+  author: osm.hammami@gmail.com
+  description: |
+    Creates a RuntimeConfig with a list of variables that belong to a RuntimeConfig created resource.
+  version: 0.1
+
+imports:
+- path: runtimeconfig-variables.jinja
+
+required:
+- variables
+
+properties:
+  variables:
+    type: array
+    description: An array of https://cloud.google.com/deployment-manager/runtime-configurator/reference/rest/v1beta1/projects.configs.variables
+    items:
+      type: object
+      required:
+        - name
+        - value
+      properties:
+        name:
+          type: string
+        value:
+          type:
+            - integer
+            - string

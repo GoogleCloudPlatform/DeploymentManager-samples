@@ -1,0 +1,20 @@
+#  title: Runtime Config Variables
+#  author: osm.hammami@gmail.com
+#  description: |
+#    Creates a RuntimeConfig with a list of variables that belong to the created RuntimeConfig  resource.
+#  version: 0.1
+
+imports:
+  - path: runtimeconfig-variables.jinja
+
+resources:
+  - name: test-deployment-1
+    type: runtimeconfig-variables.jinja
+    properties:
+      variables:
+      - name: var1
+        value: 192.168.1.1
+      - name: var2
+        value: 192.168.1.2
+      - name: var3
+        value: 192.168.1.3
