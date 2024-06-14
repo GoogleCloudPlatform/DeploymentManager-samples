@@ -18,9 +18,11 @@ When ready, deploy with the following command:
 
     NAME="your-name"
     ZONE="your-zone"
+    CLUSTER_VERSION="your-cluster-version"
+    MACHINE_TYPE="your-machine-type"
     gcloud deployment-manager deployments create ${NAME} \
     --template cluster.py \
-    --properties zone:${ZONE}
+    --properties zone:${ZONE},clusterVersion:${CLUSTER_VERSION},machineType:${MACHINE_TYPE}
 
 This will result in two resources:
 

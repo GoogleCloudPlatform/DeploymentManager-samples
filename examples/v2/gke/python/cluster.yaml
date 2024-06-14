@@ -20,4 +20,6 @@ resources:
   type: cluster.py
   properties:
     zone: ZONE_TO_RUN
+    clusterVersion: CLUSTER_VERSION
+    machineType: MACHINE_TYPE
 

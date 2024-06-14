@@ -28,6 +28,12 @@ properties:
   zone:
     type: string
     description: Zone in which the cluster should run.
+  clusterVersion:
+    type: string
+    description: The initial Kubernetes version for this cluster.
+  machineType:
+    type: string
+    description: A set of virtualized hardware resources available to VM instance.
   initialNodeCount:
     type: integer
     description: Initial number of nodes desired in the cluster.
