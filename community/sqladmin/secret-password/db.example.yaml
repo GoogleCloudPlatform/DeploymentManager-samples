@@ -1,0 +1,10 @@
+imports:
+  - path: cloudsql.py
+resources:
+  - name: cloudsql
+    type: cloudsql.py
+    properties:
+      dbUser:
+        user: root
+        configName: example-cloudsql-config
+        passwordVariable: username/root
