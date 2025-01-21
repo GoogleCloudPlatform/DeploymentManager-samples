@@ -110,7 +110,7 @@ resources:
       boot: true
       autoDelete: true
       initializeParams:
-        sourceImage: https://www.googleapis.com/compute/v1/projects/centos-cloud/global/images/family/centos-7
+        sourceImage: https://www.googleapis.com/compute/v1/projects/centos-cloud/global/images/family/centos-stream-9
         diskType: https://www.googleapis.com/compute/v1/projects/{{ env["project"] }}/zones/{{ properties["zone"] }}/diskTypes/{{ properties["mds_boot_disk_type"] }}
         diskSizeGb: {{ properties["mds_boot_disk_size_gb"] }}
     {% if properties["mdt_disk_type"] == "local-ssd" %}
@@ -203,7 +203,7 @@ resources:
       boot: true
       autoDelete: true
       initializeParams:
-        sourceImage: https://www.googleapis.com/compute/v1/projects/centos-cloud/global/images/family/centos-7
+        sourceImage: https://www.googleapis.com/compute/v1/projects/centos-cloud/global/images/family/centos-stream-9
         diskType: https://www.googleapis.com/compute/v1/projects/{{ env["project"] }}/zones/{{ properties["zone"] }}/diskTypes/{{ properties["oss_boot_disk_type"] }}
         diskSizeGb: {{ properties["oss_boot_disk_size_gb"] }}
     {% if properties["ost_disk_type"] == "local-ssd" %}
@@ -289,7 +289,7 @@ resources:
       boot: true
       autoDelete: true
       initializeParams:
-        sourceImage: https://www.googleapis.com/compute/v1/projects/centos-cloud/global/images/family/centos-7
+        sourceImage: https://www.googleapis.com/compute/v1/projects/centos-cloud/global/images/family/centos-stream-9
         diskType: https://www.googleapis.com/compute/v1/projects/{{ env["project"] }}/zones/{{ properties["zone"] }}/diskTypes/{{ properties["hsm_boot_disk_type"] }}
         diskSizeGb: {{ properties["hsm_boot_disk_size_gb"] }}
   {% if (properties['vpc_subnet'] and properties['vpc_net'] and properties['shared_vpc_host_proj'])  %}
